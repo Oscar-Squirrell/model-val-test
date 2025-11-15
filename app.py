@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import pandas as pd
 import numpy as np
@@ -6,6 +7,14 @@ import statsmodels.api as sm
 from scipy.stats import jarque_bera
 
 app = FastAPI(title="Model Validation API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],     # allow Caffeine drafts
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class DataInput(BaseModel):
     columns: list[str]
